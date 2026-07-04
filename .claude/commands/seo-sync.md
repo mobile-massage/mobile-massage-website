@@ -1,6 +1,6 @@
-# SEO Sync
+# SEO & LLM/AI Search Sync
 
-Scan for any changes in `src/App.tsx` that should be reflected in the SEO and AI search files, and apply any needed updates.
+Scan for any changes in `src/App.tsx` that should be reflected in the traditional SEO files (structured data, sitemap, robots) **and** the LLM/AI search discovery file (`llms.txt`), and apply any needed updates. This covers both how Google/Bing crawl and rank the site, and how AI assistants (ChatGPT, Claude, Perplexity, etc.) discover and summarize it when answering user questions.
 
 ## What to check
 
@@ -23,10 +23,11 @@ Read the following files:
 ### docs/sitemap.xml
 - `<lastmod>` — update to today's date (YYYY-MM-DD format) if any SEO files changed
 
-### public/llms.txt
+### public/llms.txt (LLM/AI search discovery file)
 - Services list and prices must match App.tsx
 - Coverage area must match App.tsx
 - Contact/booking info must match App.tsx
+- This is the file AI assistants read to summarize the business — keep it in plain, complete sentences, not just keyword lists
 
 ### docs/robots.txt
 - Sitemap URL must point to `https://mobile-massage.uk/sitemap.xml`
@@ -37,6 +38,7 @@ Read the following files:
 1. Read all five files listed above
 2. Compare service names, descriptions, and prices in App.tsx against index.html JSON-LD and llms.txt
 3. Compare coverage areas in App.tsx against index.html areaServed and llms.txt
-4. If anything is out of sync, edit the relevant file(s) to bring them in line with App.tsx
-5. If any SEO file was changed, update `<lastmod>` in docs/sitemap.xml to today's date
-6. Report what was changed, or confirm everything is already in sync
+4. If anything is out of sync, edit the relevant file(s) to bring them in line with App.tsx — this includes both the SEO files and llms.txt
+5. If any file was changed, update `<lastmod>` in docs/sitemap.xml to today's date
+6. Remember that `public/` and `docs/` copies of llms.txt, robots.txt, and sitemap.xml must both be updated — there's no build step that syncs them automatically
+7. Report what was changed, or confirm everything (SEO and LLM/AI search) is already in sync

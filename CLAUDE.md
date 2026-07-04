@@ -4,9 +4,9 @@ See [README.md](README.md) for full architecture, tech stack, and setup details.
 
 ## Skills
 
-### `/seo-sync`
+### `/seo-sync` (covers SEO **and** LLM/AI search)
 
-Defined in `.claude/commands/seo-sync.md`. Decides whether the SEO and AI-search files (`index.html` JSON-LD, `public/llms.txt`, `docs/sitemap.xml`, `docs/robots.txt`) are out of sync with `src/App.tsx` (the source of truth for services, prices, and coverage areas), and fixes them if so. If nothing has drifted, it says so rather than making needless edits.
+Defined in `.claude/commands/seo-sync.md`. Decides whether the traditional SEO files (`index.html` JSON-LD, `docs/sitemap.xml`, `docs/robots.txt`) **and** the LLM/AI search discovery file (`public/llms.txt`) are out of sync with `src/App.tsx` (the source of truth for services, prices, and coverage areas), and fixes them if so. `llms.txt` is what AI assistants (ChatGPT, Claude, Perplexity, etc.) read to summarize the business when answering user questions — it needs the same attention as classic SEO. If nothing has drifted, it says so rather than making needless edits.
 
 **Run this before every push to `main`.** A `PreToolUse` hook (`.claude/settings.json`) fires automatically when a `git push origin main` command is about to run and reminds to run `/seo-sync` first, so SEO fixes land in the same deploy rather than a follow-up one.
 
