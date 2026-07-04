@@ -276,8 +276,8 @@ The `/seo-sync` Claude Code skill (`/.claude/commands/seo-sync.md`) checks these
   - Public can `SELECT` where `status = 'approved'`
   - Public can `INSERT` (review submissions)
   - Authenticated users (admin) can `SELECT` all rows
-  - Authenticated users can `UPDATE` status/approved fields
-  - Authenticated users can `DELETE` reviews
+  - `UPDATE`/`DELETE` are restricted to an explicit email allow-list (`auth.email() in ('craig@quaydale.com', 'iuliabotoran9@gmail.com')`), not just "any authenticated user" — defense in depth in case public signups are ever accidentally re-enabled in Supabase Auth settings (they're currently disabled, which is the primary control)
+  - The `notify_new_review()` trigger function has public `EXECUTE` revoked — it can only run via the `on_new_pending_review` trigger, not be called directly through the REST API
 
 ---
 
