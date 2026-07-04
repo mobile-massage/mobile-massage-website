@@ -346,10 +346,10 @@ export default function App() {
         .info-btn:hover { background: #C4A45A; color: #fff; }
 
         /* Circular hero badge — desktop size */
-        .hero-badge { width: 280px; height: 280px; }
-        .hero-badge-phoenix { width: 112px; height: 112px; top: 42px; }
-        .hero-badge-text { top: 168px; }
-        .hero-name { font-size: 1.4rem; }
+        .hero-badge { width: 240px; height: 240px; }
+        .hero-badge-phoenix { width: 96px; height: 96px; top: 36px; }
+        .hero-badge-text { top: 144px; }
+        .hero-name { font-size: 1.2rem; }
 
         /* Circular hero badge — mobile size */
         @media (max-width: 600px) {
