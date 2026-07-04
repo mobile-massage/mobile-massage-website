@@ -354,10 +354,10 @@ export default function App() {
         /* Circular hero badge — mobile size */
         @media (max-width: 600px) {
           .grid-services { grid-template-columns: 1fr; }
-          .hero-badge { width: 220px; height: 220px; }
-          .hero-badge-phoenix { width: 88px; height: 88px; top: 33px; }
-          .hero-badge-text { top: 132px; }
-          .hero-name { font-size: 1.1rem; }
+          .hero-badge { width: 190px; height: 190px; }
+          .hero-badge-phoenix { width: 76px; height: 76px; top: 28px; }
+          .hero-badge-text { top: 113px; }
+          .hero-name { font-size: 0.95rem; }
         }
       `}</style>
 
