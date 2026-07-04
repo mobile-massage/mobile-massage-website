@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Signing in — Restore & Relax</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      min-height: 100vh;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, serif;
+      color: #fff;
+    }
+    .card {
+      text-align: center;
+      padding: 48px 40px;
+    }
+    img { display: block; margin: 0 auto 24px; }
+    h1 {
+      font-weight: 300;
+      font-size: 1.4rem;
+      color: #C4A45A;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    p {
+      font-size: 0.95rem;
+      color: #999;
+      margin-bottom: 28px;
+    }
+    a {
+      display: inline-block;
+      background: #1E3D0E;
+      color: #fff;
+      text-decoration: none;
+      padding: 12px 28px;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+    }
+    .tick {
+      font-size: 2.5rem;
+      color: #C4A45A;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="/phoenix-logo.png" width="56" height="56" alt="Restore & Relax" />
+    <div class="tick">✓</div>
+    <h1>Account confirmed</h1>
+    <p>Your admin account is ready.<br>Click below to sign in.</p>
+    <a href="/admin.html">Go to Admin</a>
+  </div>
+  <script>
+    // If Supabase tokens are in the hash, redirect to admin so it can pick them up
+    if (window.location.hash && window.location.hash.includes('access_token')) {
+      window.location.replace('/admin.html' + window.location.hash);
+    }
+  </script>
+</body>
+</html>
