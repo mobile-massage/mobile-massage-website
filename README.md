@@ -271,6 +271,7 @@ The `/seo-sync` Claude Code skill (`/.claude/commands/seo-sync.md`) checks these
   - Public can `INSERT` (review submissions)
   - Authenticated users (admin) can `SELECT` all rows
   - Authenticated users can `UPDATE` status/approved fields
+  - Authenticated users can `DELETE` reviews
 
 ---
 
