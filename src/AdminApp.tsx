@@ -27,6 +27,7 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,6 +36,18 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) setError(error.message);
     else onLogin();
+    setLoading(false);
+  };
+
+  const sendReset = async () => {
+    if (!email) { setError("Enter your email address first."); return; }
+    setLoading(true);
+    setError("");
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: "https://mobile-massage.uk/auth-confirm.html",
+    });
+    if (error) setError(error.message);
+    else setResetSent(true);
     setLoading(false);
   };
 
@@ -56,13 +69,19 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
           <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} />
           <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={inputStyle} />
           {error && <p style={{ color: "#c0392b", fontSize: "0.9rem", margin: 0 }}>{error}</p>}
+          {resetSent && <p style={{ color: "#4A6741", fontSize: "0.9rem", margin: 0 }}>Password reset email sent — check your inbox.</p>}
           <button
             type="submit" disabled={loading}
             style={{ background: green, color: "#fff", border: "none", padding: "13px", borderRadius: "4px", fontSize: "1rem", cursor: "pointer", fontFamily: "Georgia, serif", opacity: loading ? 0.6 : 1 }}
           >
-            {loading ? "Signing in…" : "Sign in"}
+            {loading ? "Please wait…" : "Sign in"}
           </button>
         </form>
+        <p style={{ textAlign: "center", marginTop: "16px" }}>
+          <button onClick={sendReset} disabled={loading} style={{ background: "none", border: "none", color: "#8B6914", cursor: "pointer", fontSize: "0.85rem", textDecoration: "underline", fontFamily: "Georgia, serif" }}>
+            Forgot password?
+          </button>
+        </p>
       </div>
     </div>
   );
