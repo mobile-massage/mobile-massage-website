@@ -404,13 +404,13 @@ export default function App() {
             </svg>
 
             {/* Phoenix image — centred in the upper half of the circle */}
-            <div style={{ position: "absolute", top: "62px", left: "50%", transform: "translateX(-50%)", width: "80px", height: "80px" }}>
+            <div style={{ position: "absolute", top: "52px", left: "50%", transform: "translateX(-50%)", width: "80px", height: "80px" }}>
               <PhoenixIcon size={80} />
             </div>
 
-            {/* "Restore & Relax" overlaid across the lower portion */}
-            <div style={{ position: "absolute", bottom: "68px", left: 0, right: 0, textAlign: "center" }}>
-              <h1 className="hero-name" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 300, fontSize: "2rem", color: "#C4A45A", lineHeight: 1.1, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.6)" }}>
+            {/* "Restore & Relax" below the phoenix */}
+            <div style={{ position: "absolute", top: "148px", left: 0, right: 0, textAlign: "center" }}>
+              <h1 className="hero-name" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 300, fontSize: "1.5rem", color: "#C4A45A", lineHeight: 1.2, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.6)" }}>
                 Restore & Relax
               </h1>
             </div>
