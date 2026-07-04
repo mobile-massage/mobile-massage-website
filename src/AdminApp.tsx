@@ -36,7 +36,7 @@ function LoginForm({ onLogin: _ }: { onLogin: () => void }) {
       email,
       options: { emailRedirectTo: "https://mobile-massage.uk/auth-confirm.html" },
     });
-    if (error) setError(error.message);
+    if (error) setError(error.message || "Something went wrong — please try again.");
     else setSent(true);
     setLoading(false);
   };
