@@ -113,8 +113,8 @@ There is no CI build step — you build locally and commit the output.
 rm -rf .parcel-cache bundle-out
 npx parcel build index.html admin.html --dist-dir bundle-out --public-url "/"
 
-# 2. Copy JS bundles and HTML to docs/
-for f in bundle-out/*.js; do cp "$f" docs/; done
+# 2. Copy JS bundles, hashed assets and HTML to docs/
+for f in bundle-out/*.js bundle-out/*.png bundle-out/*.svg; do [ -f "$f" ] && cp "$f" docs/; done
 cp bundle-out/index.html docs/index.html
 cp bundle-out/admin.html docs/admin.html
 
