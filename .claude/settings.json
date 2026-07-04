@@ -1,14 +1,14 @@
 {
   "hooks": {
-    "PostToolUse": [
+    "PreToolUse": [
       {
         "matcher": "Bash",
         "hooks": [
           {
             "type": "command",
             "if": "Bash(* push origin main*)",
-            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PostToolUse\",\"additionalContext\":\"Production deploy just pushed. Run /seo-sync to check if any SEO or AI search files need updating.\"}}'",
-            "statusMessage": "Checking if SEO files need updating..."
+            "command": "echo '{\"hookSpecificOutput\":{\"hookEventName\":\"PreToolUse\",\"additionalContext\":\"About to push to production (main). Run /seo-sync first to decide whether any SEO or AI-search files need updating before this deploy goes live.\"}}'",
+            "statusMessage": "Checking if SEO sync is needed before deploy..."
           }
         ]
       }

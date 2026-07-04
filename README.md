@@ -176,6 +176,12 @@ Reviews are stored in a Supabase `reviews` table with this structure:
 
 **Admin** approves or declines reviews from the admin panel (see below).
 
+### New review email notification
+
+Every time a visitor submits a review (arrives as `status = 'pending'`), a Postgres trigger (`on_new_pending_review`) calls a Supabase Edge Function (`notify-new-review`), which emails `iuliabotoran9@gmail.com` via Resend with the reviewer's name, rating, and text, plus a link to the admin panel. Bulk Urban-sync imports insert directly as `status = 'approved'` and don't trigger this — only organic visitor submissions do.
+
+The function reads its Resend API key from a `RESEND_API_KEY` secret set in the Supabase dashboard (Edge Functions → `notify-new-review` → Secrets) — not committed to this repo.
+
 ---
 
 ## Admin panel
