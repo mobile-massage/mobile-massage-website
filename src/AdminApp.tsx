@@ -8,7 +8,7 @@ type Review = {
   rating: number;
   body: string;
   created_at: string;
-  approved: boolean | null;
+  status: "pending" | "approved" | "declined";
 };
 
 const gold = "#C4A45A";
@@ -85,14 +85,13 @@ function LoginForm({ onLogin: _ }: { onLogin: () => void }) {
 function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [loading, setLoading] = useState(true);
-  const [filter, setFilter] = useState<"pending" | "approved" | "all">("pending");
+  const [filter, setFilter] = useState<"pending" | "approved" | "declined" | "all">("pending");
   const [busy, setBusy] = useState<string | null>(null);
 
   const load = async () => {
     setLoading(true);
     let q = supabase.from("reviews").select("*").order("created_at", { ascending: false });
-    if (filter === "pending") q = q.not("approved", "eq", true);
-    else if (filter === "approved") q = q.eq("approved", true);
+    if (filter !== "all") q = q.eq("status", filter);
     const { data } = await q;
     setReviews(data ?? []);
     setLoading(false);
@@ -100,14 +99,14 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
   useEffect(() => { load(); }, [filter]);
 
-  const approve = async (id: string) => {
+  const setStatus = async (id: string, status: "approved" | "declined") => {
     setBusy(id);
-    await supabase.from("reviews").update({ approved: true }).eq("id", id);
+    await supabase.from("reviews").update({ status, approved: status === "approved" }).eq("id", id);
     setBusy(null);
     load();
   };
 
-  const reject = async (id: string) => {
+  const remove = async (id: string) => {
     if (!confirm("Delete this review permanently?")) return;
     setBusy(id);
     await supabase.from("reviews").delete().eq("id", id);
@@ -115,7 +114,8 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
     load();
   };
 
-  const pendingCount = reviews.filter(r => !r.approved).length;
+  const borderColor = (status: string) =>
+    status === "approved" ? "#4A6741" : status === "declined" ? "#c0392b" : gold;
 
   const tabStyle = (active: boolean): React.CSSProperties => ({
     padding: "8px 20px", borderRadius: "50px", border: "1px solid",
@@ -127,7 +127,6 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
 
   return (
     <div style={{ minHeight: "100vh", background: "#f5f0e8" }}>
-      {/* Header */}
       <div style={{ background: green, padding: "16px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <img src="/phoenix-logo.png" width={32} height={32} alt="" />
@@ -139,12 +138,10 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       </div>
 
       <div style={{ maxWidth: "800px", margin: "0 auto", padding: "32px 24px" }}>
-        {/* Filter tabs */}
         <div style={{ display: "flex", gap: "10px", marginBottom: "28px", flexWrap: "wrap" }}>
-          <button style={tabStyle(filter === "pending")} onClick={() => setFilter("pending")}>
-            Pending {filter === "pending" && pendingCount > 0 ? `(${pendingCount})` : ""}
-          </button>
+          <button style={tabStyle(filter === "pending")} onClick={() => setFilter("pending")}>Pending</button>
           <button style={tabStyle(filter === "approved")} onClick={() => setFilter("approved")}>Approved</button>
+          <button style={tabStyle(filter === "declined")} onClick={() => setFilter("declined")}>Declined</button>
           <button style={tabStyle(filter === "all")} onClick={() => setFilter("all")}>All</button>
         </div>
 
@@ -158,7 +155,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
             {reviews.map(r => (
-              <div key={r.id} style={{ background: "#fff", borderRadius: "6px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", borderLeft: `4px solid ${r.approved ? "#4A6741" : gold}` }}>
+              <div key={r.id} style={{ background: "#fff", borderRadius: "6px", padding: "24px", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", borderLeft: `4px solid ${borderColor(r.status)}` }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "12px", flexWrap: "wrap" }}>
                   <div>
                     <div style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "6px" }}>
@@ -170,27 +167,26 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                     </div>
                     <p style={{ color: "#5C3D1E", fontStyle: "italic", margin: 0, lineHeight: 1.6 }}>"{r.body}"</p>
                   </div>
-                  {!r.approved && (
-                    <div style={{ display: "flex", gap: "8px", flexShrink: 0 }}>
-                      <button
-                        onClick={() => approve(r.id)}
-                        disabled={busy === r.id}
-                        style={{ background: "#4A6741", color: "#fff", border: "none", padding: "8px 18px", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem", opacity: busy === r.id ? 0.5 : 1 }}
-                      >
+                  <div style={{ display: "flex", gap: "8px", flexShrink: 0, flexWrap: "wrap" }}>
+                    {r.status !== "approved" && (
+                      <button onClick={() => setStatus(r.id, "approved")} disabled={busy === r.id}
+                        style={{ background: "#4A6741", color: "#fff", border: "none", padding: "8px 18px", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem", opacity: busy === r.id ? 0.5 : 1 }}>
                         Approve
                       </button>
-                      <button
-                        onClick={() => reject(r.id)}
-                        disabled={busy === r.id}
-                        style={{ background: "#fff", color: "#c0392b", border: "1px solid #c0392b", padding: "8px 18px", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem", opacity: busy === r.id ? 0.5 : 1 }}
-                      >
-                        Delete
+                    )}
+                    {r.status !== "declined" && (
+                      <button onClick={() => setStatus(r.id, "declined")} disabled={busy === r.id}
+                        style={{ background: "#fff", color: "#c0392b", border: "1px solid #c0392b", padding: "8px 18px", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem", opacity: busy === r.id ? 0.5 : 1 }}>
+                        Decline
                       </button>
-                    </div>
-                  )}
-                  {r.approved && (
-                    <span style={{ fontSize: "0.75rem", color: "#4A6741", background: "#EEF4EC", padding: "4px 12px", borderRadius: "50px", whiteSpace: "nowrap" }}>✓ Live</span>
-                  )}
+                    )}
+                    <button onClick={() => remove(r.id)} disabled={busy === r.id}
+                      style={{ background: "#fff", color: "#999", border: "1px solid #ddd", padding: "8px 18px", borderRadius: "4px", cursor: "pointer", fontSize: "0.85rem", opacity: busy === r.id ? 0.5 : 1 }}>
+                      Delete
+                    </button>
+                    {r.status === "approved" && <span style={{ fontSize: "0.75rem", color: "#4A6741", background: "#EEF4EC", padding: "4px 12px", borderRadius: "50px", whiteSpace: "nowrap", alignSelf: "center" }}>✓ Live</span>}
+                    {r.status === "declined" && <span style={{ fontSize: "0.75rem", color: "#c0392b", background: "#fdecea", padding: "4px 12px", borderRadius: "50px", whiteSpace: "nowrap", alignSelf: "center" }}>✗ Declined</span>}
+                  </div>
                 </div>
               </div>
             ))}
