@@ -604,6 +604,10 @@ export default function App() {
           <button onClick={() => setShowPrivacy(true)} style={{ background: "none", border: "none", color: "#7A9B70", cursor: "pointer", fontFamily: "'Playfair Display', serif", fontSize: "0.75rem", textDecoration: "underline", padding: 0 }}>
             Privacy Policy
           </button>
+          <span style={{ margin: "0 8px", color: "#444" }}>·</span>
+          <a href="/admin.html" style={{ color: "#7A9B70", fontFamily: "'Playfair Display', serif", fontSize: "0.75rem", textDecoration: "underline" }}>
+            Admin
+          </a>
         </p>
         <p style={{ marginTop: "12px", fontSize: "0.7rem", color: "#444", fontFamily: "'Playfair Display', serif", letterSpacing: "1px" }}>
           &copy; 2026 Mobile Massage
