@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /admin.html
+Disallow: /auth-confirm.html
 
-Sitemap: https://quaydale.github.io/restore-relax/sitemap.xml
+Sitemap: https://mobile-massage.uk/sitemap.xml
