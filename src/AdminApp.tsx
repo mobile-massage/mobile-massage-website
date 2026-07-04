@@ -22,32 +22,22 @@ function Stars({ n }: { n: number }) {
   );
 }
 
-function LoginForm({ onLogin }: { onLogin: () => void }) {
+function LoginForm({ onLogin: _ }: { onLogin: () => void }) {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [resetSent, setResetSent] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
-    if (error) setError(error.message);
-    else onLogin();
-    setLoading(false);
-  };
-
-  const sendReset = async () => {
-    if (!email) { setError("Enter your email address first."); return; }
-    setLoading(true);
-    setError("");
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://mobile-massage.uk/auth-confirm.html",
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: "https://mobile-massage.uk/auth-confirm.html" },
     });
     if (error) setError(error.message);
-    else setResetSent(true);
+    else setSent(true);
     setLoading(false);
   };
 
@@ -65,23 +55,28 @@ function LoginForm({ onLogin }: { onLogin: () => void }) {
           <h1 style={{ fontFamily: "Georgia, serif", fontWeight: 300, fontSize: "1.4rem", color: green, margin: 0 }}>Admin</h1>
           <p style={{ fontSize: "0.8rem", color: "#999", marginTop: "6px", letterSpacing: "2px", textTransform: "uppercase" }}>Restore & Relax</p>
         </div>
-        <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-          <input type="email" required placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} />
-          <input type="password" required placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={inputStyle} />
-          {error && <p style={{ color: "#c0392b", fontSize: "0.9rem", margin: 0 }}>{error}</p>}
-          {resetSent && <p style={{ color: "#4A6741", fontSize: "0.9rem", margin: 0 }}>Password reset email sent — check your inbox.</p>}
-          <button
-            type="submit" disabled={loading}
-            style={{ background: green, color: "#fff", border: "none", padding: "13px", borderRadius: "4px", fontSize: "1rem", cursor: "pointer", fontFamily: "Georgia, serif", opacity: loading ? 0.6 : 1 }}
-          >
-            {loading ? "Please wait…" : "Sign in"}
-          </button>
-        </form>
-        <p style={{ textAlign: "center", marginTop: "16px" }}>
-          <button onClick={sendReset} disabled={loading} style={{ background: "none", border: "none", color: "#8B6914", cursor: "pointer", fontSize: "0.85rem", textDecoration: "underline", fontFamily: "Georgia, serif" }}>
-            Forgot password?
-          </button>
-        </p>
+        {sent ? (
+          <div style={{ textAlign: "center" }}>
+            <div style={{ fontSize: "2.5rem", color: gold, marginBottom: "16px" }}>✉</div>
+            <p style={{ fontFamily: "Georgia, serif", color: green, fontSize: "1.05rem", marginBottom: "8px" }}>Check your email</p>
+            <p style={{ fontSize: "0.875rem", color: "#999", lineHeight: 1.6 }}>A sign-in link has been sent to <strong>{email}</strong>. Click it to access the admin panel.</p>
+            <button onClick={() => setSent(false)} style={{ marginTop: "20px", background: "none", border: "none", color: "#8B6914", cursor: "pointer", fontSize: "0.85rem", textDecoration: "underline", fontFamily: "Georgia, serif" }}>
+              Use a different email
+            </button>
+          </div>
+        ) : (
+          <form onSubmit={submit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+            <p style={{ fontSize: "0.875rem", color: "#999", margin: 0, lineHeight: 1.6 }}>Enter your email and we'll send you a sign-in link — no password needed.</p>
+            <input type="email" required placeholder="Email address" value={email} onChange={e => setEmail(e.target.value)} style={inputStyle} />
+            {error && <p style={{ color: "#c0392b", fontSize: "0.9rem", margin: 0 }}>{error}</p>}
+            <button
+              type="submit" disabled={loading}
+              style={{ background: green, color: "#fff", border: "none", padding: "13px", borderRadius: "4px", fontSize: "1rem", cursor: "pointer", fontFamily: "Georgia, serif", opacity: loading ? 0.6 : 1 }}
+            >
+              {loading ? "Sending…" : "Send sign-in link"}
+            </button>
+          </form>
+        )}
       </div>
     </div>
   );
