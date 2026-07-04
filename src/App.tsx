@@ -345,9 +345,19 @@ export default function App() {
         .info-btn::before { content: ''; position: absolute; inset: -12px; border-radius: 50%; }
         .info-btn:hover { background: #C4A45A; color: #fff; }
 
+        /* Circular hero badge — desktop size */
+        .hero-badge { width: 280px; height: 280px; }
+        .hero-badge-phoenix { width: 112px; height: 112px; top: 42px; }
+        .hero-badge-text { top: 168px; }
+        .hero-name { font-size: 1.4rem; }
+
+        /* Circular hero badge — mobile size */
         @media (max-width: 600px) {
           .grid-services { grid-template-columns: 1fr; }
-          .hero-name { font-size: 3rem !important; }
+          .hero-badge { width: 220px; height: 220px; }
+          .hero-badge-phoenix { width: 88px; height: 88px; top: 33px; }
+          .hero-badge-text { top: 132px; }
+          .hero-name { font-size: 1.1rem; }
         }
       `}</style>
 
@@ -387,7 +397,7 @@ export default function App() {
         <div style={{ textAlign: "center", position: "relative", padding: "0 20px", zIndex: 2 }}>
 
           {/* ── Circular badge logo ── */}
-          <div style={{ position: "relative", display: "inline-block", width: "280px", height: "280px" }}>
+          <div className="hero-badge" style={{ position: "relative", display: "inline-block" }}>
             {/* Gold circle border */}
             <svg viewBox="0 0 280 280" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
               <circle cx="140" cy="140" r="132" fill="none" stroke="#C4A45A" strokeWidth="1.5" opacity="0.7" />
@@ -404,13 +414,13 @@ export default function App() {
             </svg>
 
             {/* Phoenix image — centred in the upper half of the circle */}
-            <div style={{ position: "absolute", top: "42px", left: "50%", transform: "translateX(-50%)", width: "112px", height: "112px" }}>
-              <PhoenixIcon size={112} />
+            <div className="hero-badge-phoenix" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
+              <img src="/phoenix-logo.png" alt="Phoenix" style={{ display: "block", margin: "0 auto", width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
 
             {/* "Restore & Relax" below the phoenix */}
-            <div style={{ position: "absolute", top: "168px", left: 0, right: 0, textAlign: "center" }}>
-              <h1 className="hero-name" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 300, fontSize: "1.4rem", color: "#C4A45A", lineHeight: 1.15, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.6)" }}>
+            <div className="hero-badge-text" style={{ position: "absolute", left: 0, right: 0, textAlign: "center" }}>
+              <h1 className="hero-name" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 300, color: "#C4A45A", lineHeight: 1.15, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.6)" }}>
                 Restore & Relax
               </h1>
             </div>
