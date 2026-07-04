@@ -91,7 +91,7 @@ function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const load = async () => {
     setLoading(true);
     let q = supabase.from("reviews").select("*").order("created_at", { ascending: false });
-    if (filter === "pending") q = q.is("approved", false).or("approved.is.null");
+    if (filter === "pending") q = q.not("approved", "eq", true);
     else if (filter === "approved") q = q.eq("approved", true);
     const { data } = await q;
     setReviews(data ?? []);
