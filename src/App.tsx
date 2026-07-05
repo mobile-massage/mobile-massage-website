@@ -347,17 +347,11 @@ export default function App() {
 
         /* Circular hero badge — desktop size */
         .hero-badge { width: 240px; height: 240px; }
-        .hero-badge-phoenix { width: 96px; height: 96px; top: 36px; }
-        .hero-badge-text { top: 144px; }
-        .hero-name { font-size: 1.2rem; }
 
         /* Circular hero badge — mobile size */
         @media (max-width: 600px) {
           .grid-services { grid-template-columns: 1fr; }
           .hero-badge { width: 190px; height: 190px; }
-          .hero-badge-phoenix { width: 76px; height: 76px; top: 28px; }
-          .hero-badge-text { top: 113px; }
-          .hero-name { font-size: 0.95rem; }
         }
       `}</style>
 
@@ -398,32 +392,11 @@ export default function App() {
 
           {/* ── Circular badge logo ── */}
           <div className="hero-badge" style={{ position: "relative", display: "inline-block" }}>
-            {/* Gold circle border */}
-            <svg viewBox="0 0 280 280" style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}>
-              <circle cx="140" cy="140" r="132" fill="none" stroke="#C4A45A" strokeWidth="1.5" opacity="0.7" />
-
-              {/* "MASSAGE THERAPY" arc at top */}
-              <defs>
-                <path id="badgeArc" d="M 22,140 A 118,118 0 0,1 258,140" />
-              </defs>
-              <text>
-                <textPath href="#badgeArc" startOffset="50%" textAnchor="middle" style={{ fontFamily: "'Playfair Display', serif", fontSize: "13px", letterSpacing: "6px", fill: "#C4A45A" }}>
-                  MASSAGE THERAPY
-                </textPath>
-              </text>
-            </svg>
-
-            {/* Phoenix image — centred in the upper half of the circle */}
-            <div className="hero-badge-phoenix" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)" }}>
-              <img src="/phoenix-logo.png" alt="Phoenix" style={{ display: "block", margin: "0 auto", width: "100%", height: "100%", objectFit: "contain" }} />
-            </div>
-
-            {/* "Restore & Relax" below the phoenix */}
-            <div className="hero-badge-text" style={{ position: "absolute", left: 0, right: 0, textAlign: "center" }}>
-              <h1 className="hero-name" style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontWeight: 300, color: "#C4A45A", lineHeight: 1.15, margin: 0, textShadow: "0 1px 12px rgba(0,0,0,0.6)" }}>
-                Restore & Relax
-              </h1>
-            </div>
+            <img
+              src="/phoenix-badge.png"
+              alt="Restore & Relax — Massage Therapy"
+              style={{ display: "block", width: "100%", height: "100%", objectFit: "contain", filter: "drop-shadow(0 2px 16px rgba(0,0,0,0.5))" }}
+            />
           </div>
 
           {/* "by IULIA" below the badge */}
