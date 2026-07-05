@@ -400,6 +400,8 @@ export default function App() {
             <img
               src="/phoenix-badge.png"
               alt="Restore & Relax — Massage Therapy"
+              width={480}
+              height={463}
               style={{ display: "block", width: "100%", height: "100%", objectFit: "contain", filter: "drop-shadow(0 2px 16px rgba(0,0,0,0.5))" }}
             />
           </div>
@@ -473,6 +475,8 @@ export default function App() {
                       src={service.image}
                       alt={service.name}
                       loading="lazy"
+                      width={800}
+                      height={560}
                       style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%)" }} />
