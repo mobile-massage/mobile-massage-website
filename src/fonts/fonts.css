@@ -1,9 +1,9 @@
-@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; src: url('./cormorant-300.ttf') format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 400; src: url('./cormorant-400.ttf') format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 500; src: url('./cormorant-500.ttf') format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; src: url('./cormorant-300i.ttf') format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 400; src: url('./cormorant-400i.ttf') format('truetype'); }
-@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 500; src: url('./cormorant-500i.ttf') format('truetype'); }
-@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; src: url('./playfair-400.ttf') format('truetype'); }
-@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 500; src: url('./playfair-500.ttf') format('truetype'); }
-@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 600; src: url('./playfair-600.ttf') format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url('./cormorant-300.ttf') format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 400; font-display: swap; src: url('./cormorant-400.ttf') format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 500; font-display: swap; src: url('./cormorant-500.ttf') format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url('./cormorant-300i.ttf') format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 400; font-display: swap; src: url('./cormorant-400i.ttf') format('truetype'); }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 500; font-display: swap; src: url('./cormorant-500i.ttf') format('truetype'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 400; font-display: swap; src: url('./playfair-400.ttf') format('truetype'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 500; font-display: swap; src: url('./playfair-500.ttf') format('truetype'); }
+@font-face { font-family: 'Playfair Display'; font-style: normal; font-weight: 600; font-display: swap; src: url('./playfair-600.ttf') format('truetype'); }

@@ -238,7 +238,7 @@ const InfoModal = ({ service, onClose }: { service: { name: string; info: Servic
 };
 
 const PhoenixIcon = ({ size = 112 }: { size?: number; color?: string }) => (
-  <img src="/phoenix-logo.png" alt="Phoenix" width={size} height={size} style={{ display: "block", margin: "0 auto", objectFit: "contain" }} />
+  <img src="/phoenix-logo.png" alt="Phoenix" width={size} height={size} loading="lazy" style={{ display: "block", margin: "0 auto", objectFit: "contain" }} />
 );
 
 const LeafDecor = ({ style }: { style?: React.CSSProperties }) => (
@@ -390,6 +390,11 @@ export default function App() {
 
         <div style={{ textAlign: "center", position: "relative", padding: "0 20px", zIndex: 2 }}>
 
+          {/* Visually hidden — page's primary heading, otherwise only present as text baked into the badge image */}
+          <h1 style={{ position: "absolute", width: "1px", height: "1px", padding: 0, margin: "-1px", overflow: "hidden", clip: "rect(0,0,0,0)", whiteSpace: "nowrap", border: 0 }}>
+            Restore & Relax — Mobile Massage Therapy by Iulia in Woking & Surrey
+          </h1>
+
           {/* ── Circular badge logo ── */}
           <div className="hero-badge" style={{ position: "relative", display: "inline-block" }}>
             <img
@@ -467,6 +472,7 @@ export default function App() {
                     <img
                       src={service.image}
                       alt={service.name}
+                      loading="lazy"
                       style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                     />
                     <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 50%)" }} />
