@@ -20,6 +20,7 @@ Defined in `.claude/commands/seo-sync.md`. Decides whether the traditional SEO f
 - Parcel hashes every asset (JS, CSS, images) on each build — `docs/` accumulates stale hashed files if you only copy `*.js`. Copy `*.js`, `*.css`, and `*.png`/`*.svg` from `bundle-out/`, and remove anything no longer referenced by `docs/index.html` / `docs/admin.html`.
 - After copying, update `docs/version.json` with the new main-bundle hash so the auto-refresh polling picks up the deploy for users already on the page.
 - `public/` and `docs/` versions of `robots.txt`, `sitemap.xml`, and `llms.txt` must be kept in sync manually — there's no build step that copies them. If you edit one, edit both.
+- `phoenix-logo.png`, `phoenix-badge.png`, and `og-image.jpg` are referenced only via plain string paths (`<img src="/...">`, `<meta content="https://mobile-massage.uk/...">`), not JS imports — Parcel's asset graph never sees them, so they don't get hashed or auto-copied. Copy them from `public/` to `docs/` by hand on every deploy that touches them.
 
 ## Review notification email
 
