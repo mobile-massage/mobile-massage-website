@@ -401,8 +401,8 @@ export default function App() {
 
           {/* "by IULIA" below the badge */}
           <div style={{ marginTop: "10px" }}>
-            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "1rem", color: "#C4A45A", letterSpacing: "1px", marginBottom: "2px" }}>by</p>
-            <p style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "1.6rem", color: "#C4A45A", letterSpacing: "8px", textTransform: "uppercase" }}>Iulia</p>
+            <p style={{ fontFamily: "'Cormorant Garamond', serif", fontStyle: "italic", fontSize: "1rem", color: "#EDC74C", letterSpacing: "1px", marginBottom: "2px" }}>by</p>
+            <p style={{ fontFamily: "'Playfair Display', serif", fontWeight: 700, fontSize: "1.6rem", color: "#EDC74C", letterSpacing: "8px", textTransform: "uppercase" }}>Iulia</p>
           </div>
 
           {/* Tagline */}
