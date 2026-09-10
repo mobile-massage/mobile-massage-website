@@ -6,3 +6,5 @@ allowBuilds:
 
 overrides:
   brace-expansion@>=3.0.0 <5.0.7: '>=5.0.7'
+  browserslist@<=4.28.6: '>=4.28.7'
+  baseline-browser-mapping@>=2.0.0 <2.11.0: '>=2.11.0'
